@@ -1,11 +1,7 @@
 import { Typography } from "@mui/material";
 import * as React from "react";
 
-export interface IAppProps {
-  posts: any[];
-}
-
-export default async function App(props: IAppProps) {
+export default async function App() {
   const name = await getData();
 
   return (
