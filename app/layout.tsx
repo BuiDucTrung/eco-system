@@ -1,9 +1,9 @@
 import { Box, Container, Stack } from "@mui/material";
 import type { Metadata } from "next";
-import Footer from "./common/Footer";
 import Header from "./common/headers/Header";
 import { SWRProvider } from "./swr/SwrProvide";
 import ThemeRegistry from "./theme/ThemeRegistry";
+import Footer from "./common/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",

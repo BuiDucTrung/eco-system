@@ -18,6 +18,9 @@ let theme = createTheme({
       light: "#edf7fa",
       main: "#00A8CC",
     },
+    text: {
+      primary: "#21243D",
+    },
   },
   typography: {
     fontFamily: heebo.style.fontFamily,
@@ -72,6 +75,24 @@ let theme = createTheme({
           props: { variant: "contained", color: "primary" },
           style: {
             color: "white",
+          },
+        },
+      ],
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          paddingInline: 2,
+        },
+      },
+      variants: [
+        {
+          props: { color: "secondary" },
+          style: {
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 16,
+            backgroundColor: "#142850",
           },
         },
       ],
