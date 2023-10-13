@@ -19,11 +19,11 @@ export default function WorkCard({ work }: IWorkCardProps) {
         <Typography variant="h4" fontWeight={"bold"}>
           {work.title}
         </Typography>
-        <Stack direction={"row"} alignItems={"center"} spacing={3}>
+        <Stack direction={"row"} alignItems={"center"} spacing={3} mt={2} mb={3}>
           <Chip label={format(+work.createdAt, "yyyy")} color="default" size="small" />
           <Typography color={"GrayText"}>{work.tagList.join(", ")}</Typography>
         </Stack>
-        <Typography></Typography>
+        <Typography>{work.shortDescription}</Typography>
       </Box>
     </Stack>
   );
