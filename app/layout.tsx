@@ -4,6 +4,7 @@ import Header from "./common/headers/Header";
 import { SWRProvider } from "./swr/SwrProvide";
 import ThemeRegistry from "./theme/ThemeRegistry";
 import Footer from "./common/footer/Footer";
+import "./layout.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",

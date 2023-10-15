@@ -1,15 +1,34 @@
-import { Typography } from "@mui/material";
-import * as React from "react";
+import { Box, Container, Divider, Link as MuiLink } from "@mui/material";
+import Link from "next/link";
+import PostItem from "../common/blog-list/PostItem";
+import { getPostList } from "../utils/post";
+
+export const metadata = {
+  title: "Blog",
+  openGraph: {
+    title: "Blog",
+  },
+};
 
 export default async function App() {
-  const name = await getData();
+  const postList = await getData();
 
   return (
-    <div>
-      <Typography component={"h1"} variant="h3" color={"primary.main"} fontFamily={""}>
-        Blog page {name}
-      </Typography>
-    </div>
+    <Box>
+      <Container>
+        <h1>Blog</h1>
+        <Box component={"ul"} sx={{ listStyleType: "none", p: 0 }}>
+          {postList.map((post) => (
+            <li key={post.id}>
+              <MuiLink component={Link} href={`blog/${post.slug}`} sx={{ "&:hover": { color: "initial", textDecoration: "none" } }}>
+                <PostItem post={post} />
+              </MuiLink>
+              <Divider sx={{ my: 3 }} />
+            </li>
+          ))}
+        </Box>
+      </Container>
+    </Box>
   );
 }
 
@@ -18,9 +37,10 @@ async function getData() {
   // const res = await fetch("https://api.github.com/");
 
   // But, here we just wait for 3 seconds.
-  await new Promise((res) => setTimeout(res, 3000));
+
+  const data = await getPostList();
 
   // You would usually return data from an API here.
   // return res.json();
-  return "Dashboard data";
+  return data;
 }
