@@ -5,6 +5,8 @@ import { PublicConfiguration } from "swr/_internal";
 import { authApi } from "../api-client/auth-api";
 import axiosClient from "../api-client/axios-client";
 import { setAuthApi } from "../common/client-api";
+import { LoginPayload } from "../models/login";
+import { StorageKeys } from "../common/constants/StorageKeys";
 
 export function useAuth(options?: Partial<PublicConfiguration>) {
   const {
@@ -20,21 +22,17 @@ export function useAuth(options?: Partial<PublicConfiguration>) {
     ...options,
   });
 
-  async function login() {
-    const res: any = await authApi.login({
-      username: "qwerrt",
-      password: "dsadsadsdsadas",
-    });
+  async function login(payload: LoginPayload) {
+    const res: any = await authApi.login(payload);
     setAuthApi(axiosClient, res.accessToken);
-    localStorage.setItem("accessToken", res.accessToken);
+    localStorage.setItem(StorageKeys.ACCESS_TOKEN, res.accessToken);
 
     await mutate();
   }
 
   async function logout() {
-    await authApi.logout();
-    localStorage.removeItem("accessToken");
-    mutate({}, false);
+    localStorage.removeItem(StorageKeys.ACCESS_TOKEN);
+    mutate(null, false);
   }
 
   return {

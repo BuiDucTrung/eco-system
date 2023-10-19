@@ -5,6 +5,8 @@ import { SWRProvider } from "./swr/SwrProvide";
 import ThemeRegistry from "./theme/ThemeRegistry";
 import Footer from "./common/footer/Footer";
 import "./layout.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </Box>
               <Footer />
             </Stack>
+            <ToastContainer />
           </SWRProvider>
         </ThemeRegistry>
       </body>
