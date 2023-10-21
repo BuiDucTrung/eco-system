@@ -2,7 +2,7 @@ import { Work } from "@/app/models/work";
 import { Box, Divider } from "@mui/material";
 import { Fragment } from "react";
 import WorkCard from "./WorkCard";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import NoData from "@/public/images/no-data.jpg";
 import WorkSkeleton from "./WorkSkeleton";
 
@@ -28,7 +28,7 @@ export default function WorkList({ workList, isLoading = false }: IWorkListProps
   if (!workList.length)
     return (
       <Box>
-        <Image src={NoData} width={80} height={110} layout="responsive" alt="work thumbnail" />
+        <Image src={NoData} width={80} height={110} layout="responsive" alt="work thumbnail" priority />
       </Box>
     );
   return (

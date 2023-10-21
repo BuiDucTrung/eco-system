@@ -1,7 +1,7 @@
 import { Work } from "@/app/models/work";
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import { format } from "date-fns";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import * as React from "react";
 
 export interface IWorkCardProps {
