@@ -6,7 +6,7 @@ import { Work } from "../models/work";
 
 export const workApi = {
   getAll(params: Partial<ListParams>): Promise<ListResponse<Work>> {
-    return axiosClient.get("/work", { params });
+    return axiosClient.get("/works", { params });
   },
 
   get(id: string) {

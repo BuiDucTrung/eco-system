@@ -12,7 +12,7 @@ export default function WorkCard({ work }: IWorkCardProps) {
   return (
     <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
       <Box width={{ xs: "100%", md: "246px" }} flexShrink={0}>
-        <Image src={work.thumbnailURL} width={246} height={180} layout="responsive" alt="thumbnail" />
+        {work.thumbnailUrl ? <Image src={work.thumbnailUrl} width={246} height={180} layout="responsive" alt="thumbnail" /> : ""}
       </Box>
 
       <Box>

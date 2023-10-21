@@ -1,7 +1,7 @@
 export interface Pagination {
   _page: number;
   _limit: number;
-  _total: number;
+  _totalRows: number;
 }
 
 export interface ListParams {

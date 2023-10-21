@@ -20,7 +20,7 @@ export default function FeatureWorks(props: IFeatureWorksProps) {
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
       fullDescription:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      thumbnailURL: "https://picsum.photos/246/180",
+      thumbnailUrl: "https://picsum.photos/246/180",
     },
     {
       id: "2",
@@ -32,7 +32,7 @@ export default function FeatureWorks(props: IFeatureWorksProps) {
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
       fullDescription:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      thumbnailURL: "https://picsum.photos/246/180",
+      thumbnailUrl: "https://picsum.photos/246/180",
     },
     {
       id: "3",
@@ -44,7 +44,7 @@ export default function FeatureWorks(props: IFeatureWorksProps) {
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
       fullDescription:
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-      thumbnailURL: "https://picsum.photos/246/180",
+      thumbnailUrl: "https://picsum.photos/246/180",
     },
   ];
   return (

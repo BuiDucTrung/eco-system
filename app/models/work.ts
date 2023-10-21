@@ -6,5 +6,9 @@ export interface Work {
   fullDescription: string;
   createdAt: string | number;
   updatedAt: string | number;
-  thumbnailURL: string;
+  thumbnailUrl: string;
+}
+
+export interface WorkFilterPayload {
+  title_like: string;
 }
