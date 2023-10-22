@@ -43,7 +43,7 @@ export async function generateStaticParams() {
   return response.map((link) => ({ paths: link.slug }));
 }
 
-export async function getPostData(slug: string) {
+async function getPostData(slug: string) {
   const response = await getPostList();
   const postData = response.find((post) => post.slug === slug);
 
