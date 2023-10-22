@@ -8,18 +8,15 @@ import useWorkList from "../hooks/use-work-list";
 import { ListParams } from "../models/api";
 import { WorkFilterPayload } from "../models/work";
 import { useEffect } from "react";
-export interface IAppProps {
-  searchParams: { [key: string]: string };
-}
+import queryString from "query-string";
 
-export default function WorksPage(props: IAppProps) {
+export default function WorksPage(props: any) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const params = new URLSearchParams(searchParams);
-  const filters: Partial<ListParams> = { _page: 1, _limit: 3, ...props.searchParams };
 
-  const { data: workList, isLoading } = useWorkList({ params: { ...filters } });
+  const { data: workList, isLoading } = useWorkList({ params: { _page: 1, _limit: 3, ...queryString.parse(params.toString()) } });
 
   const { _limit, _totalRows } = workList?.pagination || {};
   const totalPages = Boolean(_totalRows) ? Math.ceil(_totalRows / _limit) : 0;
@@ -48,7 +45,7 @@ export default function WorksPage(props: IAppProps) {
     router.push(`${pathname}${params.toString() ? "?" + params.toString() : ""}`);
     console.log("workList", workList);
     console.log("params", params.toString());
-    console.log("props.searchParams", props.searchParams);
+    console.log("props.searchParams", props);
   }
 
   return (
