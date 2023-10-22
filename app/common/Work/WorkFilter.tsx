@@ -2,7 +2,7 @@ import { WorkFilterPayload } from "@/app/models/work";
 import { Search } from "@mui/icons-material";
 import { Box, InputAdornment } from "@mui/material";
 import { debounce } from "@mui/material/utils";
-import * as React from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import InputField from "../form/InputField";
 import AutocompleteField from "../form/AutoCompleteField";
@@ -19,14 +19,19 @@ export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormPr
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = useForm<WorkFilterPayload>({
     defaultValues: {
-      ...defaultValue,
+      title_like: "",
     },
 
     mode: "onChange",
   });
+
+  useEffect(() => {
+    setValue("title_like", defaultValue?.title_like || "");
+  }, []);
 
   const debounceSearchChange = debounce(handleSubmit(handleWorkFilterSubmit), 350);
 
@@ -52,7 +57,7 @@ export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormPr
           debounceSearchChange();
         }}
       />
-      <AutocompleteField
+      {/* <AutocompleteField
         options={dataFilter}
         isOptionEqualToValue={(option, value) => option.key === value.key}
         getOptionLabel={(option) => {
@@ -62,7 +67,7 @@ export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormPr
         name="selectedTagList"
         label="Fillter by category"
         placeholder="fillter by category"
-      />
+      /> */}
     </Box>
   );
 }
