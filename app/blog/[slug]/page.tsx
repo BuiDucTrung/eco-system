@@ -12,11 +12,10 @@ import { unified } from "unified";
 import remarkToc from "remark-toc";
 import rehypeSlug from "rehype-slug";
 import rehypeAutoLinkHeadings from "rehype-autolink-headings";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata, ResolvingMetadata, NextPage } from "next";
 
 interface IBlogDetailProps {
   post: Post;
-  params: { slug: string };
 }
 type Props = {
   params: { slug: string };
@@ -66,7 +65,7 @@ async function getPostData(slug: string) {
   return postData;
 }
 
-export default async function BlogDetail({ post, params }: IBlogDetailProps) {
+export default async function BlogDetail({ params }: any) {
   const postData = await getPostData(params.slug);
 
   if (!postData) return notFound();
