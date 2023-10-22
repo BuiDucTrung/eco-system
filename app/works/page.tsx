@@ -20,7 +20,9 @@ export default function WorksPage(props: IAppProps) {
   const filters: Partial<ListParams> = { _page: 1, _limit: 3, ...props.searchParams };
 
   const { data: workList, isLoading } = useWorkList({ params: { ...filters } });
-
+  console.log("workList", workList);
+  console.log("params", params);
+  console.log("props.searchParams", props.searchParams);
   const { _limit, _totalRows } = workList?.pagination || {};
   const totalPages = Boolean(_totalRows) ? Math.ceil(_totalRows / _limit) : 0;
 
