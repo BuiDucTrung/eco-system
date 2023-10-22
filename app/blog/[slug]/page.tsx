@@ -17,12 +17,8 @@ import { Metadata, ResolvingMetadata, NextPage } from "next";
 interface IBlogDetailProps {
   post: Post;
 }
-type Props = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
 
-async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+async function generateMetadata({ params }: any) {
   // read route params
   const slug = params.slug;
 
