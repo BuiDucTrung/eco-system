@@ -14,7 +14,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutoLinkHeadings from "rehype-autolink-headings";
 import { Metadata, ResolvingMetadata } from "next";
 
-export interface IBlogDetailProps {
+interface IBlogDetailProps {
   post: Post;
   params: { slug: string };
 }
@@ -23,7 +23,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   // read route params
   const slug = params.slug;
 
@@ -38,12 +38,13 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
   };
 }
 
-export async function generateStaticParams() {
+async function generateStaticParams() {
   const response = await getPostList();
   return response.map((link) => ({ paths: link.slug }));
 }
 
 async function getPostData(slug: string) {
+  console.log("slug", slug);
   const response = await getPostList();
   const postData = response.find((post) => post.slug === slug);
 

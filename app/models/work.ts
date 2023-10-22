@@ -11,4 +11,6 @@ export interface Work {
 
 export interface WorkFilterPayload {
   title_like: string;
+  tagList_search: string;
+  selectedTagList?: string[]; //temp value to store autocomplate value,
 }

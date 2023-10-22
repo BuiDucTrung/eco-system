@@ -5,12 +5,16 @@ import { debounce } from "@mui/material/utils";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import InputField from "../form/InputField";
+import AutocompleteField from "../form/AutoCompleteField";
 
 export interface IWorkFilterFormProps {
   onSubmit?: (payload: WorkFilterPayload) => void;
   defaultValue?: Partial<WorkFilterPayload>;
 }
-
+const dataFilter: Array<{ title: string; key: string; search: string }> = [
+  { title: "1", key: "1", search: "1" },
+  { title: "2", key: "2", search: "2" },
+];
 export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormProps) {
   const {
     control,
@@ -47,6 +51,17 @@ export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormPr
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           debounceSearchChange();
         }}
+      />
+      <AutocompleteField
+        options={dataFilter}
+        isOptionEqualToValue={(option, value) => option.key === value.key}
+        getOptionLabel={(option) => {
+          return typeof option === "string" ? option : option.key;
+        }}
+        control={control}
+        name="selectedTagList"
+        label="Fillter by category"
+        placeholder="fillter by category"
       />
     </Box>
   );

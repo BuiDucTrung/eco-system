@@ -1,13 +1,13 @@
 import { Box, TextField, TextFieldProps } from "@mui/material";
 import { ChangeEvent } from "react";
-import { Control, useController } from "react-hook-form";
+import { Control, useController, FieldValues, Path } from "react-hook-form";
 
-export type InputFieldProps = TextFieldProps & {
-  name: string;
-  control: Control<any>;
+export type InputFieldProps<T extends FieldValues> = TextFieldProps & {
+  name: Path<T>;
+  control: Control<T>;
 };
 
-export default function InputField({
+export default function InputField<T extends FieldValues>({
   name,
   label,
   control,
@@ -15,7 +15,7 @@ export default function InputField({
   onBlur: externalOnBlur,
   inputRef: externalRef,
   ...rest
-}: InputFieldProps) {
+}: InputFieldProps<T>) {
   const {
     field: { onChange, onBlur, value, ref },
     fieldState: { error },
