@@ -42,7 +42,7 @@ export default function WorksPage(props: IAppProps) {
 
   function handleFiltersChange(newFilters: WorkFilterPayload) {
     for (const param in newFilters) {
-      newFilters[param as keyof typeof newFilters] ? params.set(param, newFilters[param as keyof typeof newFilters]) : params.delete(param);
+      newFilters[param as keyof typeof newFilters] ? params.set(param, newFilters[param as keyof typeof newFilters]?.toString() || "") : params.delete(param);
     }
     params.set("_page", "1");
     router.push(`${pathname}${params.toString() ? "?" + params.toString() : ""}`);
