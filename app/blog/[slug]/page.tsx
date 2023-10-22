@@ -43,7 +43,7 @@ export async function generateStaticParams() {
   return response.map((link) => ({ paths: link.slug }));
 }
 
-export const getPostData = async (slug: string) => {
+export async function getPostData(slug: string) {
   const response = await getPostList();
   const postData = response.find((post) => post.slug === slug);
 
@@ -63,7 +63,7 @@ export const getPostData = async (slug: string) => {
 
   postData.htmlContent = file.toString();
   return postData;
-};
+}
 
 export default async function BlogDetail({ post, params }: IBlogDetailProps) {
   const postData = await getPostData(params.slug);

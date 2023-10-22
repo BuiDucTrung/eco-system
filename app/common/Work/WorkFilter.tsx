@@ -8,16 +8,17 @@ import InputField from "../form/InputField";
 
 export interface IWorkFilterFormProps {
   onSubmit?: (payload: WorkFilterPayload) => void;
+  defaultValue?: Partial<WorkFilterPayload>;
 }
 
-export default function WorkFilter({ onSubmit }: IWorkFilterFormProps) {
+export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormProps) {
   const {
     control,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<WorkFilterPayload>({
     defaultValues: {
-      title_like: "",
+      ...defaultValue,
     },
 
     mode: "onChange",
@@ -27,7 +28,6 @@ export default function WorkFilter({ onSubmit }: IWorkFilterFormProps) {
 
   async function handleWorkFilterSubmit(value: WorkFilterPayload) {
     await onSubmit?.(value);
-    console.log("form submit", value);
   }
 
   return (
@@ -36,6 +36,7 @@ export default function WorkFilter({ onSubmit }: IWorkFilterFormProps) {
         name="title_like"
         control={control}
         placeholder="Search work by title"
+        disabled={isSubmitting}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -44,7 +45,6 @@ export default function WorkFilter({ onSubmit }: IWorkFilterFormProps) {
           ),
         }}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          console.log("change", event.target.value);
           debounceSearchChange();
         }}
       />

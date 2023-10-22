@@ -21,8 +21,6 @@ export default function WorksPage(props: IAppProps) {
 
   const { data: workList, isLoading } = useWorkList({ params: filters });
 
-  console.log("searchParams11", props.searchParams);
-
   const { _limit, _totalRows } = workList?.pagination || {};
   const totalPages = Boolean(_totalRows) ? Math.ceil(_totalRows / _limit) : 0;
 
@@ -58,13 +56,13 @@ export default function WorksPage(props: IAppProps) {
             Work
           </Typography>
         </Box>
-        <WorkFilter onSubmit={handleFiltersChange} />
+        <WorkFilter onSubmit={handleFiltersChange} defaultValue={props.searchParams} />
         <WorkList workList={workList?.data || []} isLoading={isLoading} />
 
         {!isLoading && totalPages > 1 && (
           <>
             <Stack alignItems={"center"}>
-              <Pagination count={totalPages} page={Number(params.get("_page")) ?? 1} onChange={handlePageChange}></Pagination>
+              <Pagination count={totalPages} page={Number(params.get("_page") ?? 1)} onChange={handlePageChange}></Pagination>
             </Stack>
             <Box>
               <Button variant="contained" onClick={handlePreClick}>

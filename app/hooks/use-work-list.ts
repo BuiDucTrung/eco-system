@@ -11,18 +11,28 @@ export interface IUseWorkListProps {
 }
 
 export default function useWorkList({ params, options }: IUseWorkListProps) {
-  const swrResponse = useSWR([QuerryKeys.GET_WORK_LIST, params], () => workApi.getAll(params), {
-    dedupingInterval: 30 * 1000,
-    keepPreviousData: true,
-    fallbackData: {
-      _data: [],
-      _pagination: {
-        _page: 1,
-        _limit: 10,
-        _totalRows: 0,
-      },
+  const swrResponse = useSWR(
+    [QuerryKeys.GET_WORK_LIST, params],
+    () => {
+      for (const param in params) {
+        !params[param as keyof typeof params] && delete params[param as keyof typeof params];
+      }
+
+      return workApi.getAll(params);
     },
-    ...options,
-  });
+    {
+      dedupingInterval: 30 * 1000,
+      keepPreviousData: true,
+      fallbackData: {
+        _data: [],
+        _pagination: {
+          _page: 1,
+          _limit: 10,
+          _totalRows: 0,
+        },
+      },
+      ...options,
+    }
+  );
   return swrResponse;
 }
