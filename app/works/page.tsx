@@ -45,9 +45,8 @@ export default function WorksPage(props: any) {
     router.push(`${pathname}${params.toString() ? "?" + params.toString() : ""}`);
     console.log("workList", workList);
     console.log("params", params.toString());
-    console.log("props.searchParams", props);
   }
-
+  console.log("params", params.toString());
   return (
     <Box>
       <Container>
@@ -56,7 +55,7 @@ export default function WorksPage(props: any) {
             Work
           </Typography>
         </Box>
-        <WorkFilter onSubmit={handleFiltersChange} defaultValue={props.searchParams} />
+        <WorkFilter onSubmit={handleFiltersChange} defaultValue={queryString.parse(params.toString())} />
         <WorkList workList={workList?.data || []} isLoading={isLoading} />
 
         {!isLoading && totalPages > 1 && (

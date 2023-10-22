@@ -3,7 +3,7 @@ import { Search } from "@mui/icons-material";
 import { Box, InputAdornment } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Path } from "react-hook-form";
 import InputField from "../form/InputField";
 import AutocompleteField from "../form/AutoCompleteField";
 
@@ -30,7 +30,9 @@ export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormPr
   });
 
   useEffect(() => {
-    setValue("title_like", defaultValue?.title_like || "");
+    for (const param in defaultValue) {
+      setValue(param as Path<WorkFilterPayload>, defaultValue[param as keyof typeof defaultValue] || "");
+    }
   }, []);
 
   const debounceSearchChange = debounce(handleSubmit(handleWorkFilterSubmit), 350);
