@@ -6,34 +6,28 @@ import { useEffect } from "react";
 import { useForm, Path } from "react-hook-form";
 import InputField from "../form/InputField";
 import AutocompleteField from "../form/AutoCompleteField";
+import useTagList from "@/app/hooks/use-tag-list";
 
 export interface IWorkFilterFormProps {
   onSubmit?: (payload: WorkFilterPayload) => void;
   defaultValue?: Partial<WorkFilterPayload>;
 }
-const dataFilter: Array<{ title: string; key: string; search: string }> = [
-  { title: "1", key: "1", search: "1" },
-  { title: "2", key: "2", search: "2" },
-];
 export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormProps) {
   const {
     control,
     handleSubmit,
-    setValue,
     formState: { isSubmitting },
   } = useForm<WorkFilterPayload>({
     defaultValues: {
       title_like: "",
+      selectedTagList: [],
+      ...defaultValue,
     },
 
     mode: "onChange",
   });
 
-  useEffect(() => {
-    for (const param in defaultValue) {
-      setValue(param as Path<WorkFilterPayload>, defaultValue[param as keyof typeof defaultValue] || "");
-    }
-  }, []);
+  const { data: tagList, isLoading } = useTagList({});
 
   const debounceSearchChange = debounce(handleSubmit(handleWorkFilterSubmit), 350);
 
@@ -59,17 +53,20 @@ export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormPr
           debounceSearchChange();
         }}
       />
-      {/* <AutocompleteField
-        options={dataFilter}
-        isOptionEqualToValue={(option, value) => option.key === value.key}
-        getOptionLabel={(option) => {
-          return typeof option === "string" ? option : option.key;
-        }}
-        control={control}
-        name="selectedTagList"
-        label="Fillter by category"
-        placeholder="fillter by category"
-      /> */}
+      {!isLoading && (
+        <AutocompleteField
+          options={tagList?.data}
+          isOptionEqualToValue={(option, value) => option === value}
+          getOptionLabel={(option) => {
+            return option;
+          }}
+          control={control}
+          name="selectedTagList"
+          label="Fillter by category"
+          placeholder="fillter by category"
+          onChange={() => debounceSearchChange()}
+        />
+      )}
     </Box>
   );
 }

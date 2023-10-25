@@ -15,6 +15,11 @@ export default function WorksPage(props: any) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const params = new URLSearchParams(searchParams);
+  const convertDefaultValue = () => {
+    const valueParams = queryString.parse(params.toString());
+    const valueConverted = { ...valueParams, selectedTagList: valueParams["tagList_like"] ? valueParams["tagList_like"].toString().split("|") : [] };
+    return valueConverted;
+  };
 
   const { data: workList, isLoading } = useWorkList({ params: { _page: 1, _limit: 3, ...queryString.parse(params.toString()) } });
 
@@ -38,15 +43,13 @@ export default function WorksPage(props: any) {
   };
 
   function handleFiltersChange(newFilters: WorkFilterPayload) {
-    for (const param in newFilters) {
-      newFilters[param as keyof typeof newFilters] ? params.set(param, newFilters[param as keyof typeof newFilters]?.toString() || "") : params.delete(param);
-    }
     params.set("_page", "1");
+    params.set("tagList_like", newFilters.selectedTagList?.join("|") || "");
+    params.set("title_like", newFilters.title_like);
+
     router.push(`${pathname}${params.toString() ? "?" + params.toString() : ""}`);
-    console.log("workList", workList);
-    console.log("params", params.toString());
   }
-  console.log("params", params.toString());
+
   return (
     <Box>
       <Container>
@@ -55,7 +58,7 @@ export default function WorksPage(props: any) {
             Work
           </Typography>
         </Box>
-        <WorkFilter onSubmit={handleFiltersChange} defaultValue={queryString.parse(params.toString())} />
+        <WorkFilter onSubmit={handleFiltersChange} defaultValue={convertDefaultValue()} />
         <WorkList workList={workList?.data || []} isLoading={isLoading} />
 
         {!isLoading && totalPages > 1 && (
