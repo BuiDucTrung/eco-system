@@ -43,7 +43,6 @@ async function generateStaticParams() {
 }
 
 async function getPostData(slug: string) {
-  console.log("slug", slug);
   const response = await getPostList();
   const postData = response.find((post) => post.slug === slug);
 

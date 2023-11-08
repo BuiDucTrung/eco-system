@@ -9,6 +9,16 @@ export interface Work {
   thumbnailUrl: string;
 }
 
+export interface WorkPayload {
+  title: string;
+  shortDescription: string;
+  tagList: string[];
+  thumbnail: null | {
+    file: File;
+    previewUrl: string;
+  };
+}
+
 export interface WorkFilterPayload {
   title_like: string;
   tagList_like: string;
