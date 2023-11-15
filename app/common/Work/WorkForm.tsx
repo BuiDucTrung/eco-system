@@ -1,16 +1,17 @@
-import { Work, WorkPayload } from "@/app/models/work";
+import useTagList from "@/app/hooks/use-tag-list";
+import { WorkPayload } from "@/app/models/work";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import InputField from "../form/InputField";
-import { yupResolver } from "@hookform/resolvers/yup";
 import AutocompleteField from "../form/AutoCompleteField";
-import useTagList from "@/app/hooks/use-tag-list";
+import EditorField from "../form/EditorField";
+import InputField from "../form/InputField";
 import PhotoField from "../form/PhotoField";
 
 export interface IWorkFormProps {
-  onSubmit?: (payload: Partial<WorkPayload>) => void;
-  defaultValue?: Partial<Work>;
+  onSubmit?: (payload: FormData) => void;
+  defaultValue?: Partial<WorkPayload>;
 }
 export default function WorkForm({ onSubmit, defaultValue }: IWorkFormProps) {
   const schema = yup.object().shape({
@@ -21,7 +22,6 @@ export default function WorkForm({ onSubmit, defaultValue }: IWorkFormProps) {
       .object()
       .nullable()
       .test((value: any, context) => {
-        console.log("value", value);
         if (Boolean(defaultValue?.id) || Boolean(value?.file)) return true;
         return context.createError({ message: "Please select an image." });
       })
@@ -40,19 +40,29 @@ export default function WorkForm({ onSubmit, defaultValue }: IWorkFormProps) {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<WorkPayload>({
-    defaultValues: { title: "", shortDescription: "", tagList: [], thumbnail: null, ...defaultValue },
+    defaultValues: { title: "", shortDescription: "", tagList: [], thumbnail: null, fullDescription: "", ...defaultValue },
 
     resolver: yupResolver(schema) as any,
     mode: "onChange",
   });
-  async function handleWorkFilterSubmit(value: Partial<WorkPayload>) {
-    console.log("value", value);
+  async function handleWorkFormSubmit(formValue: Partial<WorkPayload>) {
+    const payload = new FormData();
+    formValue.id && payload.set("id", formValue.id);
+    formValue.thumbnail?.file && payload.set("thumbnail", formValue.thumbnail?.file);
+    formValue.tagList?.forEach((tag) => {
+      payload.append("tagList", tag);
+    });
 
-    // await onSubmit?.(value);
+    const keyList: Array<keyof Partial<WorkPayload>> = ["title", "fullDescription", "shortDescription"];
+    keyList.forEach((name) => {
+      if (defaultValue?.[name] !== formValue?.[name]) payload.set(name, formValue?.[name] as string);
+    });
+    console.log("payload", payload);
+    await onSubmit?.(payload);
   }
 
   return (
-    <Box component={"form"} onSubmit={handleSubmit(handleWorkFilterSubmit)}>
+    <Box component={"form"} onSubmit={handleSubmit(handleWorkFormSubmit)}>
       <InputField name="title" control={control} placeholder="Your work title" disabled={isSubmitting} label="Title" />
       <InputField
         label="Short description"
@@ -76,7 +86,7 @@ export default function WorkForm({ onSubmit, defaultValue }: IWorkFormProps) {
         label="Categories"
         placeholder="Your categrories"
       />
-
+      <EditorField name="fullDescription" control={control} label="Full Description" />
       <PhotoField name="thumbnail" control={control} label={"Thumbnail"} initialImage={defaultValue?.thumbnailUrl} />
       <Button variant="contained" type="submit">
         {defaultValue?.id ? "Save" : "Submit"}

@@ -7,7 +7,7 @@ import "./layout.css";
 import { SWRProvider } from "./swr/SwrProvide";
 import ThemeRegistry from "./theme/ThemeRegistry";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Stack minHeight={"100vh"}>
               <Header />
               <Box component={"main"} flexGrow={1}>
-                {children}
+                {props.children}
               </Box>
               <Footer />
             </Stack>

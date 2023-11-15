@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ChangeEvent } from "react";
 import { Control, FieldValues, Path, useController } from "react-hook-form";
 import { DEFAULT_THUMBNAIL_URL } from "../constants/common";
+import { Cloudinary } from "@cloudinary/url-gen";
 
 export type PhotoFieldProps<T extends FieldValues> = TextFieldProps & {
   name: Path<T>;

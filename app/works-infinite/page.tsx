@@ -1,5 +1,5 @@
 "use client";
-import { Box, CircularProgress, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Container, Stack, Typography } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { useInView } from "react-intersection-observer";
@@ -8,6 +8,7 @@ import WorkList from "../common/Work/WorkList";
 import useWorkListInfinity from "../hooks/use-work-list-infinity";
 import { ListResponse } from "../models/api";
 import { Work, WorkFilterPayload } from "../models/work";
+import { Arguments, useSWRConfig } from "swr";
 
 export default function WorksPage(props: any) {
   const router = useRouter();
@@ -52,6 +53,9 @@ export default function WorksPage(props: any) {
             Work
           </Typography>
         </Box>
+        <Button variant="contained" onClick={() => router.push("/works-infinite/add")}>
+          Go to add work page
+        </Button>
         <WorkFilter onSubmit={handleFiltersChange} defaultValue={convertDefaultValue()} />
         <WorkList workList={workList} isLoading={isLoading} />
         {showLoadmore && (

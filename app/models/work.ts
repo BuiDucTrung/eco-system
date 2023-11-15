@@ -9,7 +9,7 @@ export interface Work {
   thumbnailUrl: string;
 }
 
-export interface WorkPayload {
+export interface WorkPayload extends Work {
   title: string;
   shortDescription: string;
   tagList: string[];
@@ -17,6 +17,7 @@ export interface WorkPayload {
     file: File;
     previewUrl: string;
   };
+  fullDescription: string;
 }
 
 export interface WorkFilterPayload {

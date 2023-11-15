@@ -1,11 +1,14 @@
 "use client";
 
 import WorkForm from "@/app/common/Work/WorkForm";
+import { useAddWork } from "@/app/hooks/use-work-add";
+
 import useWorkDetail from "@/app/hooks/use-work-detail";
-import { Work, WorkPayload } from "@/app/models/work";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { getErrorMessage } from "@/app/utils/getErrorMessage";
+import { Box, Container, Typography } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
-import * as React from "react";
+import Script from "next/script";
+import { toast } from "react-toastify";
 
 export interface IAddEditWorkPageProps {}
 export interface IAddSlugWorkPageProps {
@@ -16,8 +19,28 @@ export default function AddEditWorkPage(props: IAddEditWorkPageProps) {
   const params = useParams();
   const route = useRouter();
   const isAddMode = params?.workId === "add";
+  const {
+    swrResponse: { data: workDetail, isLoading },
+    updateWork,
+  } = useWorkDetail({ workId: params?.workId.toString(), enabled: !isAddMode });
 
-  const { data: workDetail, isLoading } = useWorkDetail({ workId: params?.workId.toString(), enabled: !isAddMode });
+  const addNewWork = useAddWork();
+
+  const handleSubmitForm = async (payload: FormData) => {
+    try {
+      if (!isAddMode) {
+        await updateWork(payload);
+        toast.success("update successfully");
+      } else {
+        await addNewWork(payload);
+        toast.success("add successfully");
+      }
+    } catch (error) {
+      const message = getErrorMessage(error);
+      console.log("error", error);
+      toast.error(message);
+    }
+  };
 
   return (
     <Box>
@@ -27,8 +50,9 @@ export default function AddEditWorkPage(props: IAddEditWorkPageProps) {
             {isAddMode ? "Add new work" : `Edit work ${params.workId}`}
           </Typography>
         </Box>
-        <Box>{(isAddMode || workDetail) && <WorkForm defaultValue={workDetail as any} onSubmit={() => {}} />}</Box>
+        <Box>{(isAddMode || workDetail) && <WorkForm defaultValue={workDetail as any} onSubmit={handleSubmitForm} />}</Box>
       </Container>
+      <Script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript" strategy="afterInteractive"></Script>
     </Box>
   );
 }

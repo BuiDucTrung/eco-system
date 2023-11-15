@@ -26,5 +26,10 @@ export default function useWorkDetail({ workId, enabled = true, options }: IUseW
       ...options,
     }
   );
-  return swrResponse;
+
+  const updateWork = async (payload: FormData) => {
+    const newWork = await workApi.update(payload);
+    swrResponse.mutate(newWork);
+  };
+  return { swrResponse, updateWork };
 }

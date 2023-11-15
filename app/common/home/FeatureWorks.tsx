@@ -1,9 +1,5 @@
-import { Box, Container, Link as MuiLink, Stack, Typography } from "@mui/material";
-import Link from "next/link";
-import * as React from "react";
-import PostCard from "./PostCard";
-import { Post } from "@/app/models/post";
 import { Work } from "@/app/models/work";
+import { Box, Container, Typography } from "@mui/material";
 import WorkList from "../Work/WorkList";
 
 export interface IFeatureWorksProps {}
