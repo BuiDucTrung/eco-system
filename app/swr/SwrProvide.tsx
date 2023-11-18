@@ -22,8 +22,6 @@ export const SWRProvider = ({ children }: any) => {
       isNeedValidate && router.push(`/login?back_to=${encodeUrl(window.location.pathname + window.location.search)}`);
     }
   }, [path]);
-  // useEffect(() => {
-  //   localStorage.getItem("accessToken") && setAuthApi(axiosClient, localStorage.getItem("accessToken"));
-  // }, []);
+
   return <SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>{children}</SWRConfig>;
 };

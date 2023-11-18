@@ -1,14 +1,12 @@
 "use client";
 import { Box, Button, Container, Pagination, Stack, Typography } from "@mui/material";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import queryString from "query-string";
 import { ChangeEvent } from "react";
 import WorkFilter from "../common/Work/WorkFilter";
 import WorkList from "../common/Work/WorkList";
 import useWorkList from "../hooks/use-work-list";
-import { ListParams } from "../models/api";
 import { WorkFilterPayload } from "../models/work";
-import { useEffect } from "react";
-import queryString from "query-string";
 
 export default function WorksPage(props: any) {
   const router = useRouter();
