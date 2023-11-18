@@ -13,7 +13,6 @@ export function useAddWork() {
 
       for (const key of cache.keys() as any) {
         if (key.includes("/works")) {
-          console.log("key checked", key);
           mutate(key, undefined, { revalidate: true });
         }
       }

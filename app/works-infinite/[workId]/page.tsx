@@ -5,6 +5,7 @@ import { useAddWork } from "@/app/hooks/use-work-add";
 
 import useWorkDetail from "@/app/hooks/use-work-detail";
 import { getErrorMessage } from "@/app/utils/getErrorMessage";
+import revalWorkDetail from "@/app/utils/revalidateTag";
 import { Box, Container, Typography } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
 import Script from "next/script";
@@ -35,6 +36,8 @@ export default function AddEditWorkPage(props: IAddEditWorkPageProps) {
         await addNewWork(payload);
         toast.success("add successfully");
       }
+
+      route.push(`/works-infinite/${workDetail?.id}/detail`);
     } catch (error) {
       const message = getErrorMessage(error);
       console.log("error", error);

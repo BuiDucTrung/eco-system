@@ -95,6 +95,14 @@ let theme = createTheme({
             backgroundColor: "#142850",
           },
         },
+        {
+          props: { color: "primary" },
+          style: {
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 16,
+          },
+        },
       ],
     },
   },

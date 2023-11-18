@@ -4,6 +4,7 @@ import * as React from "react";
 import { ListParams } from "../models/api";
 import { workApi } from "../api-client/work-api";
 import { QuerryKeys } from "../common/constants/QueryKeys";
+import revalWorkDetail from "../utils/revalidateTag";
 
 export interface IUseWorkProps {
   workId: string;
