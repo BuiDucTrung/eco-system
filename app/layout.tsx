@@ -14,11 +14,11 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <ThemeRegistry>
           <SWRProvider>
             <Stack minHeight={"100vh"}>
-              <Header />
+              {/* <Header /> */}
               <Box component={"main"} flexGrow={1}>
                 {props.children}
               </Box>
-              <Footer />
+              {/* <Footer /> */}
             </Stack>
             <ToastContainer />
           </SWRProvider>
