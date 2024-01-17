@@ -5,12 +5,12 @@ import FeatureWorks from "./common/home/FeatureWorks";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Soulmate",
-  description: "Nothing but Moon",
+  title: "Blog",
+  description: "Nothing but ramble",
   creator: "Troy",
   publisher: "Troy",
-  authors: [{ name: "Troy" }, { name: "Moon" }],
-  keywords: ["soulmate", "Moon", "spirit", "smile"],
+  authors: [{ name: "Troy" }],
+  keywords: ["blog", "daily"],
   referrer: "origin-when-cross-origin",
   viewport: {
     width: "device-width",
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     maximumScale: 1,
   },
   openGraph: {
-    title: "Soulmate",
-    description: "Nothing but Moon",
+    title: "Rambly blogs",
+    description: "Nothing but ramble",
     url: "https://eco-system-sigma.vercel.app/",
   },
 };
