@@ -33,11 +33,11 @@ export default function WorkList({ workList, isLoading = false }: IWorkListProps
     );
   return (
     <Box>
-      {workList.map((work) => (
-        <Fragment key={work.id}>
+      {workList.map((work, index) => (
+        <Box key={work.id} className={`${index % 2 === 0 ? "wordCardEven" : "workCardOdd"}`}>
           <WorkCard work={work} />
           <Divider sx={{ mt: 2, mb: 4 }} />
-        </Fragment>
+        </Box>
       ))}
     </Box>
   );

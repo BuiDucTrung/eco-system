@@ -37,8 +37,8 @@ export default function RecentPosts(props: IRecentPostProps) {
           </MuiLink>
         </Stack>
         <Stack spacing={4} direction={{ xs: "column", md: "row" }} sx={{ "& > div": { width: { xs: "100%", md: "50%" } } }}>
-          {postList.map((post) => (
-            <Box key={post.id}>
+          {postList.map((post, index) => (
+            <Box key={post.id} className={`${index % 2 === 0 ? "postEven" : "postOdd"}`}>
               {" "}
               <PostCard post={post} />
             </Box>

@@ -2,3 +2,80 @@ a {
   text-decoration: none;
   color: initial;
 }
+
+.contentCard {
+  animation: parallaxTop linear;
+  animation-timeline: scroll();
+
+  overflow: clip;
+}
+
+.imageCard {
+  animation: parallaxTop linear;
+  animation-timeline: scroll();
+
+  overflow: clip;
+}
+
+.postOdd {
+  animation: parallaxRight linear;
+  animation-timeline: view();
+  animation-range: 95vh exit;
+
+  overflow: clip;
+}
+
+.postEven {
+  animation: parallaxLeft linear;
+  animation-timeline: view();
+  animation-range: 95vh exit;
+
+  overflow: clip;
+}
+
+.wordCardEven {
+  opacity: 0.5;
+
+  animation: appearAndMove linear forwards;
+  animation-timeline: view();
+  animation-range: entry;
+
+  transform: scale(0.9);
+}
+
+.workCardOdd {
+  opacity: 0.5;
+
+  animation: appearAndMove linear forwards;
+  animation-timeline: view();
+  animation-range: entry;
+
+  transform: scale(0.9);
+}
+
+@keyframes parallaxTop {
+  to {
+    transform: translateY(-100px);
+    opacity: 0.5;
+  }
+}
+
+@keyframes parallaxLeft {
+  to {
+    transform: translateX(-100px);
+    opacity: 0.5;
+  }
+}
+@keyframes parallaxRight {
+  to {
+    transform: translateX(100px);
+    opacity: 0.5;
+  }
+}
+
+@keyframes appearAndMove {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
