@@ -7,7 +7,7 @@ export interface IHeroSectionProps {}
 
 export default function HeroSection(props: IHeroSectionProps) {
   return (
-    <Box component={"section"} pt={{ xs: 4, md: 18 }} pb={{ xs: 7, md: 9 }}>
+    <Box component={"section"} pt={{ xs: 1, md: 18 }} pb={{ xs: 7, md: 9 }}>
       <Container>
         <Stack
           direction={{ md: "row", xs: "column" }}

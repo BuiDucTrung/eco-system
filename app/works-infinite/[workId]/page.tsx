@@ -48,7 +48,7 @@ export default function AddEditWorkPage(props: IAddEditWorkPageProps) {
   return (
     <Box>
       <Container>
-        <Box mb={4} mt={8}>
+        <Box mb={4} mt={{ xs: 4, md: 8 }}>
           <Typography component={"h1"} variant="h3">
             {isAddMode ? "Add new work" : `Edit work ${params.workId}`}
           </Typography>

@@ -1,14 +1,11 @@
+import useTagList from "@/app/hooks/use-tag-list";
 import { WorkFilterPayload } from "@/app/models/work";
 import { Search } from "@mui/icons-material";
 import { Box, InputAdornment } from "@mui/material";
 import { debounce } from "@mui/material/utils";
-import { useEffect } from "react";
-import { useForm, Path } from "react-hook-form";
-import InputField from "../form/InputField";
+import { useForm } from "react-hook-form";
 import AutocompleteField from "../form/AutoCompleteField";
-import useTagList from "@/app/hooks/use-tag-list";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import InputField from "../form/InputField";
 
 export interface IWorkFilterFormProps {
   onSubmit?: (payload: WorkFilterPayload) => void;
@@ -38,7 +35,7 @@ export default function WorkFilter({ onSubmit, defaultValue }: IWorkFilterFormPr
   }
 
   return (
-    <Box component={"form"}>
+    <Box component={"form"} mb={2}>
       <InputField
         name="title_like"
         control={control}

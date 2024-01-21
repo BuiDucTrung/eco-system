@@ -7,14 +7,15 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useAuth } from "@/app/hooks/use-auth";
 
-export interface IAppProps {}
+export interface IAppProps {
+  routeList: Array<{ label: string; path: string; requireLogin?: boolean }>;
+  isLoggedIn: boolean;
+}
 
-export default function HeaderDesktop(props: IAppProps) {
+export default function HeaderDesktop({ routeList, isLoggedIn }: IAppProps) {
   const pathName = usePathname();
-  const { profile, logout } = useAuth();
-  const isLoggedIn = Boolean(profile?.username);
 
-  const routeList = ROUTE_LIST.filter((route) => !route.requireLogin || (route.requireLogin && isLoggedIn));
+  const { logout } = useAuth();
 
   return (
     <Box display={{ xs: "none", md: "block" }} py={2}>
